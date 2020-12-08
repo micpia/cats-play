@@ -2,6 +2,7 @@ package model
 
 import org.scalatestplus.play._
 import utils.Printable
+import utils.PrintableSyntax.PrintableOps
 
 class CatSpec extends PlaySpec {
 
@@ -37,7 +38,7 @@ class CatSpec extends PlaySpec {
 //      Heathcliff is a 33 year-old orange and black cat.
 
       Printable.print(cat1)
-      Printable.print(cat2)
+      cat2.print
     }
 
   }
