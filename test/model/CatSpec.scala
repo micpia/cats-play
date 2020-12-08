@@ -3,7 +3,9 @@ package model
 import org.scalatestplus.play._
 
 class CatSpec extends PlaySpec {
+
   "Cats" should {
+
     "be easily compared" in {
 
       val cat1 = Cat("Garfield", 38, "orange and black")
@@ -23,5 +25,6 @@ class CatSpec extends PlaySpec {
       optionCatEmpty === optionCat2 mustBe false
       optionCat1 === optionCat1Copy mustBe true
     }
+
   }
 }
