@@ -1,6 +1,7 @@
 package model
 
 import org.scalatestplus.play._
+import utils.Printable
 
 class CatSpec extends PlaySpec {
 
@@ -24,6 +25,19 @@ class CatSpec extends PlaySpec {
       (optionCat1 !== optionCat2) mustBe true
       optionCatEmpty === optionCat2 mustBe false
       optionCat1 === optionCat1Copy mustBe true
+    }
+
+    "print objects using custom printable class ^" in {
+
+      val cat1 = Cat("Garfield", 38, "orange and black")
+      val cat2 = Cat("Heathcliff", 33, "orange and black")
+
+//      expected output
+//      Garfield is a 38 year-old orange and black cat.
+//      Heathcliff is a 33 year-old orange and black cat.
+
+      Printable.print(cat1)
+      Printable.print(cat2)
     }
 
   }
