@@ -5,12 +5,8 @@ trait Printable[A] {
 }
 
 object PrintableInstances {
-  implicit val stringPrintable: Printable[String] = new Printable[String] {
-    def format(input: String): String = input
-  }
-  implicit val intPrintable: Printable[Int] = new Printable[Int] {
-    def format(input: Int): String = input.toString
-  }
+  implicit val stringPrintable: Printable[String] = (input: String) => input
+  implicit val intPrintable: Printable[Int] = (input: Int) => input.toString
 }
 
 object Printable {

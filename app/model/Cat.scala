@@ -2,6 +2,7 @@ package model
 
 import cats.Eq
 import utils.Printable
+import utils.PrintableInstances._
 
 final case class Cat(name: String, age: Int, color: String)
 
@@ -13,15 +14,11 @@ object Cat {
     (cat1.age == cat2.age)
   }
 
-  import utils.PrintableInstances._
-
-  implicit val catPrintable: Printable[Cat] = new Printable[Cat] {
-    def format(cat: Cat): String = {
-      val name = Printable.format(cat.name)
-      val age = Printable.format(cat.age)
-      val color = Printable.format(cat.color)
-      s"$name is a $age year-old $color cat."
-    }
+  implicit val catPrintable: Printable[Cat] = (cat: Cat) => {
+    val name = Printable.format(cat.name)
+    val age = Printable.format(cat.age)
+    val color = Printable.format(cat.color)
+    s"$name is a $age year-old $color cat."
   }
 
 }
