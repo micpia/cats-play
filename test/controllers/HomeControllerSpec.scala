@@ -11,7 +11,7 @@ class HomeControllerSpec extends PlaySpec with GuiceOneAppPerTest with Injecting
 
     "response with OK status on GET / request" in {
       val controller = inject[HomeController]
-      val home = controller.index().apply(FakeRequest(GET, "/"))
+      val home = controller.status().apply(FakeRequest(GET, "/"))
 
       status(home) mustBe OK
     }
