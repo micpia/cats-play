@@ -1,8 +1,7 @@
 package model
 
 import org.scalatestplus.play._
-import utils.Printable
-import utils.PrintableSyntax.PrintableOps
+
 
 class CatSpec extends PlaySpec {
 
@@ -29,6 +28,9 @@ class CatSpec extends PlaySpec {
     }
 
     "print objects using custom printable class ^" in {
+
+      import utils.Printable
+      import utils.PrintableSyntax.PrintableOps
 
       val cat1 = Cat("Garfield", 38, "orange and black")
       val cat2 = Cat("Heathcliff", 33, "orange and black")
