@@ -136,9 +136,68 @@ class WriterSpec extends PlaySpec {
 
     }
 
+    "log raw factorial" in {
+      import scala.util.Random
+      import scala.concurrent.{Await, Future}
+      import scala.concurrent.ExecutionContext.Implicits._
+      import scala.concurrent.duration._
 
+      implicit val random: Random = new Random()
 
+      def slowly[A](body: => A)(implicit random: Random): A =
+        try body finally Thread.sleep(random.nextInt(50) * 5)
 
+      def factorial(n: Int): Int = {
+        val ans = if (n == 0) 1 else slowly(n * factorial(n - 1))
+        println(s"fact $n $ans")
+        ans
+      }
+
+      Await.result(Future.sequence(Vector(
+        Future(factorial(10)),
+        Future(factorial(10))
+      )), 5.seconds)
+
+    }
+
+    "log factorial with writer monad" in {
+      import scala.util.Random
+      import scala.concurrent.{Await, Future}
+      import scala.concurrent.ExecutionContext.Implicits._
+      import scala.concurrent.duration._
+      import cats.data.Writer // for writer
+      import cats.implicits.catsSyntaxApplicativeId //for pure
+      import cats.implicits.catsSyntaxWriterId //for tell syntax
+
+      type Logged[A] = Writer[Vector[String], A]
+
+      implicit val random: Random = new Random()
+
+      def slowly[A](body: => A)(implicit random: Random): A =
+        try body finally Thread.sleep(random.nextInt(50) * 5)
+
+      def factorial(n: Int): Logged[Int] = {
+        for {
+          ans <- {
+            if (n == 0)
+              1.pure[Logged]
+            else
+              slowly(factorial(n - 1).map(_ * n))
+          }
+          _ <- Vector(s"fact $n $ans").tell
+        } yield {
+          ans
+        }
+      }
+
+      val result = Await.result(Future.sequence(Vector(
+        Future(factorial(10)),
+        Future(factorial(10))
+      )), 5.seconds)
+
+      result.map(_.mapWritten(_.foreach(println(_))))
+
+    }
 
   }
 
