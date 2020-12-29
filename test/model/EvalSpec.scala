@@ -22,6 +22,14 @@ class EvalSpec extends PlaySpec {
 
     }
 
+    /**
+     * Eval is a useful tool to enforce stack safety when working on very large
+     * computations and data structures. However, we must bear in mind that
+     * trampolining is not free. It avoids consuming stack by creating a chain of
+     * function objects on the heap. There are still limits on how deeply
+     * we can nest computations, but they are bounded by the size of the heap
+     * rather than the stack.
+     */
     "work when folding with Eval" in {
 
       def evalFoldRight[A, B](as: List[A], acc: B)(fn: (A, Eval[B]) => Eval[B]): Eval[B] =
