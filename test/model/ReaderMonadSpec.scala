@@ -2,7 +2,7 @@ package model
 
 import org.scalatestplus.play.PlaySpec
 
-class ReaderSpec extends PlaySpec {
+class ReaderMonadSpec extends PlaySpec {
 
   "Reader monad " should {
 

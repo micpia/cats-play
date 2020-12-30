@@ -2,7 +2,7 @@ package model
 
 import org.scalatestplus.play.PlaySpec
 
-class WriterSpec extends PlaySpec {
+class WriterMonadSpec extends PlaySpec {
 
   "Cats Writer" should {
 

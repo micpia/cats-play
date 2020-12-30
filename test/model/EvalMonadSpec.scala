@@ -3,7 +3,7 @@ package model
 import cats.Eval
 import org.scalatestplus.play.PlaySpec
 
-class EvalSpec extends PlaySpec {
+class EvalMonadSpec extends PlaySpec {
   "Eval" should {
 
     val rangeList = (1L to 1000000L).toList

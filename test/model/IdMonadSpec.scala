@@ -2,7 +2,7 @@ package model
 
 import org.scalatestplus.play.PlaySpec
 
-class IdSpec extends PlaySpec {
+class IdMonadSpec extends PlaySpec {
 
   "Id" should {
 
